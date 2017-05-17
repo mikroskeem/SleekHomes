@@ -1,0 +1,14 @@
+name: PluxerHomes
+version: @version@
+main: eu.mikroskeem.pluxer.homes.Main
+author: mikroskeem
+
+permissions:
+  pluxerhomes.home:
+    default: true
+  pluxerhomes.sethome:
+    default: true
+  pluxerhomes.delhome:
+    default: true
+  pluxerhomes.unlimited:
+    default: op
