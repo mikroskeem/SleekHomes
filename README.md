@@ -13,6 +13,7 @@ Uses HikariCP & H2 to store data.
 - `pluxerhomes.home` - allow using __/home__ command. Allowed by default
 - `pluxerhomes.sethome` - allow using __/sethome__ command. Allowed by default
 - `pluxerhomes.delhome` - allow using __/delhome__ command. Allowed by default
+- `pluxerhomes.listhomes` - allow using __/listhomes__ command. Allowed by default
 
 ## Commands
 Self-explanatory commands. Tab completion also works

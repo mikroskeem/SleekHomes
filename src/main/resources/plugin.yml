@@ -10,5 +10,7 @@ permissions:
     default: true
   pluxerhomes.delhome:
     default: true
+  pluxerhomes.listhomes:
+    default: true
   pluxerhomes.unlimited:
     default: op
