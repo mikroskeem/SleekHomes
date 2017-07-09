@@ -40,6 +40,9 @@ class DatabaseWrapper(private val main: Main) {
     private val hikari : HikariDataSource
 
     init {
+        // Try to load h2 driver
+        Class.forName("org.h2.Driver")
+
         val config = HikariConfig()
         val props = Properties()
         props.setProperty("date_string_format", "dd-MM-yyyy HH:mm:ss")
