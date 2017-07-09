@@ -2,7 +2,7 @@ group 'eu.mikroskeem.pluxer'
 version '0.0.1-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.1.2-5'
+    ext.kotlin_version = '1.1.3-2'
 
     repositories {
         mavenCentral()
@@ -10,13 +10,16 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.4"
+        classpath group: 'org.jetbrains.kotlin', name: 'kotlin-gradle-plugin', version: kotlin_version
+        classpath group: 'gradle.plugin.net.minecrell', name: 'licenser', version: minecrell_licenser_version
+        classpath group: 'com.github.jengelman.gradle.plugins', name: 'shadow', version: shadow_version
+
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'net.minecrell.licenser'
 apply plugin: "com.github.johnrengelman.shadow"
 
 sourceCompatibility = 1.8
@@ -44,12 +47,14 @@ dependencies {
     compileOnly group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.11.2-R0.1-SNAPSHOT'
 }
 
+// Resources processor
 processResources {
     from(sourceSets.main.resources.srcDirs) {
         filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [version: version]
     }
 }
 
+// Kotlin compiler task
 compileKotlin {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -59,6 +64,20 @@ compileKotlin {
         apiVersion = "1.1"
         languageVersion = "1.1"
     }
+}
+
+// Licenser task
+license {
+    header = rootProject.file('etc/HEADER')
+    ignoreFailures = false
+    include '**/*.kt'
+    include '**/*.java'
+}
+
+// Wrapper task
+task wrapper(type: Wrapper) {
+    gradleVersion = gradle_version
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
 
 build.dependsOn shadowJar
