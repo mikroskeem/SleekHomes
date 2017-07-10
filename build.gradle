@@ -40,11 +40,11 @@ repositories {
 
 dependencies {
     compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jre8', version: "$kotlin_version"
-    compile group: 'ninja.leaping.configurate', name: 'configurate-hocon', version: '3.2'
-    compile group: 'com.h2database', name: 'h2', version: '1.4.195'
-    compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.1'
+    compile group: 'ninja.leaping.configurate', name: 'configurate-hocon', version: '3.3'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.196'
+    compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.3'
     compile group: 'co.aikar', name: 'acf-core', version: '0.4.0-SNAPSHOT'
-    compileOnly group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.11.2-R0.1-SNAPSHOT'
+    compileOnly group: 'com.destroystokyo.paper', name: 'paper-api', version: '1.12-R0.1-SNAPSHOT'
 }
 
 // Resources processor
