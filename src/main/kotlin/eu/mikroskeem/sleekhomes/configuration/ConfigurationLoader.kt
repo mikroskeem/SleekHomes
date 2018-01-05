@@ -1,7 +1,7 @@
 /*
- * This file is part of project PluxerHomes, licensed under the MIT License (MIT).
+ * This file is part of project SleekHomes, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2017 Mark Vainomaa <mikroskeem@mikroskeem.eu>
+ * Copyright (c) 2018 Mark Vainomaa <mikroskeem@mikroskeem.eu>
  * Copyright (c) Contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,9 +23,9 @@
  * THE SOFTWARE.
  */
 
-package eu.mikroskeem.pluxer.homes.configuration
+package eu.mikroskeem.sleekhomes.configuration
 
-import eu.mikroskeem.pluxer.homes.configuration.sections.PluxerHomesSection
+import eu.mikroskeem.sleekhomes.configuration.sections.SleekHomesSection
 import ninja.leaping.configurate.ConfigurationOptions
 import ninja.leaping.configurate.commented.CommentedConfigurationNode
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader
@@ -43,10 +43,11 @@ private val HEADER = """
 
 class ConfigurationLoader(configurationPath: Path) {
     private val loader : ConfigurationLoader<CommentedConfigurationNode>
-    private val mapper : ObjectMapper<PluxerHomesSection>.BoundInstance
+    private val mapper : ObjectMapper<SleekHomesSection>.BoundInstance
     private lateinit var baseNode : CommentedConfigurationNode
 
-    var configuration : PluxerHomesSection
+    var configuration : SleekHomesSection
+        private set
 
     init {
         // Build loader
@@ -57,17 +58,17 @@ class ConfigurationLoader(configurationPath: Path) {
         loader = builder.build()
 
         // Set up mapper
-        mapper = ObjectMapper.forClass(PluxerHomesSection::class.java).bindToNew()
+        mapper = ObjectMapper.forClass(SleekHomesSection::class.java).bindToNew()
         configuration = mapper.instance
     }
 
     fun load() {
         baseNode = loader.load()
-        configuration = mapper.populate(baseNode.getNode("pluxerhomes"))
+        configuration = mapper.populate(baseNode.getNode("sleekhomes"))
     }
 
     fun save() {
-        mapper.serialize(baseNode.getNode("pluxerhomes"))
+        mapper.serialize(baseNode.getNode("sleekhomes"))
         loader.save(baseNode)
     }
 

@@ -1,7 +1,7 @@
 /*
- * This file is part of project PluxerHomes, licensed under the MIT License (MIT).
+ * This file is part of project SleekHomes, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2017 Mark Vainomaa <mikroskeem@mikroskeem.eu>
+ * Copyright (c) 2018 Mark Vainomaa <mikroskeem@mikroskeem.eu>
  * Copyright (c) Contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  */
 
-package eu.mikroskeem.pluxer.homes.configuration.sections
+package eu.mikroskeem.sleekhomes.configuration.sections
 
 import ninja.leaping.configurate.objectmapping.Setting
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable
@@ -32,7 +32,7 @@ import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable
  * @author Mark Vainomaa
  */
 @ConfigSerializable
-class PluxerHomesSection {
+class SleekHomesSection {
     @Setting(value = "groups", comment = "Home permission groups")
     var groups: Map<String, Int> = mapOf(
             Pair("default", 1),

@@ -1,7 +1,7 @@
 /*
- * This file is part of project PluxerHomes, licensed under the MIT License (MIT).
+ * This file is part of project SleekHomes, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2017 Mark Vainomaa <mikroskeem@mikroskeem.eu>
+ * Copyright (c) 2018 Mark Vainomaa <mikroskeem@mikroskeem.eu>
  * Copyright (c) Contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,23 +23,22 @@
  * THE SOFTWARE.
  */
 
-package eu.mikroskeem.pluxer.homes.configuration.sections;
+package eu.mikroskeem.sleekhomes.configuration.sections
 
-import ninja.leaping.configurate.objectmapping.Setting;
-import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
+import ninja.leaping.configurate.objectmapping.Setting
+import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable
 
 /**
  * @author Mark Vainomaa
  */
 @ConfigSerializable
-public class WorldsSection {
-    @Setting(value = "world-groups", comment = "World groups")
-    public Map<String, List<String>> groups = Collections.singletonMap("survival-group",
-            Arrays.asList("surv", "surv_nether", "surv_the_end"));
+class ListFormatSection {
+    @Setting(value = "prefix", comment = "List prefix")
+    var prefix = "&7Kodud: "
+
+    @Setting(value = "delimiter", comment = "List delimiter")
+    var delimiter = "&7, "
+
+    @Setting(value = "home-name-format", comment = "Home name format")
+    var homeNameFormat = "&6%homename"
 }

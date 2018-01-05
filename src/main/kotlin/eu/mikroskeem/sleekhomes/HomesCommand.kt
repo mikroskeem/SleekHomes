@@ -1,7 +1,7 @@
 /*
- * This file is part of project PluxerHomes, licensed under the MIT License (MIT).
+ * This file is part of project SleekHomes, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2017 Mark Vainomaa <mikroskeem@mikroskeem.eu>
+ * Copyright (c) 2018 Mark Vainomaa <mikroskeem@mikroskeem.eu>
  * Copyright (c) Contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,10 +23,13 @@
  * THE SOFTWARE.
  */
 
-package eu.mikroskeem.pluxer.homes
+package eu.mikroskeem.sleekhomes
 
 import co.aikar.commands.BaseCommand
-import co.aikar.commands.annotation.*
+import co.aikar.commands.annotation.CommandAlias
+import co.aikar.commands.annotation.CommandCompletion
+import co.aikar.commands.annotation.CommandPermission
+import co.aikar.commands.annotation.Optional
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerTeleportEvent
@@ -34,10 +37,10 @@ import org.bukkit.event.player.PlayerTeleportEvent
 /**
  * @author Mark Vainomaa
  */
-class HomesCommand(private val main: Main) : BaseCommand("pluxerhomes") {
+class HomesCommand(private val main: Main): BaseCommand("sleekhomes") {
     @CommandAlias("home")
     @CommandCompletion("@homes")
-    @CommandPermission("pluxerhomes.home")
+    @CommandPermission("sleekhomes.home")
     fun home(player: Player, @Optional theHomeName: String?) {
         if(!player.hasWorldPermission()) {
             player.sendColoredMessage(main.configuration.messages.noPermission)
@@ -67,7 +70,7 @@ class HomesCommand(private val main: Main) : BaseCommand("pluxerhomes") {
 
     @CommandAlias("sethome")
     @CommandCompletion("@homes")
-    @CommandPermission("pluxerhomes.sethome")
+    @CommandPermission("sleekhomes.sethome")
     fun setHome(player: Player, @Optional theHomeName: String?) {
         if(!player.hasWorldPermission()) {
             player.sendColoredMessage(main.configuration.messages.noPermission)
@@ -86,7 +89,7 @@ class HomesCommand(private val main: Main) : BaseCommand("pluxerhomes") {
 
     @CommandAlias("delhome")
     @CommandCompletion("@homes")
-    @CommandPermission("pluxerhomes.delhome")
+    @CommandPermission("sleekhomes.delhome")
     fun deleteHome(player: Player, @Optional theHomeName: String?) {
         if(!player.hasWorldPermission()) {
             player.sendColoredMessage(main.configuration.messages.noPermission)
@@ -103,7 +106,7 @@ class HomesCommand(private val main: Main) : BaseCommand("pluxerhomes") {
     }
 
     @CommandAlias("listhomes|homes")
-    @CommandPermission("pluxerhomes.listhomes")
+    @CommandPermission("sleekhomes.listhomes")
     fun listHomes(player: Player) {
         if(!player.hasWorldPermission()) {
             player.sendColoredMessage(main.configuration.messages.noPermission)
@@ -125,11 +128,11 @@ class HomesCommand(private val main: Main) : BaseCommand("pluxerhomes") {
     }
 
     // Helper extensions
-    private fun Player.checkGroups() : Int {
-        if(player.hasPermission("pluxerhomes.unlimited")) return 128 // Not really unlimited, but sane-ish one eh?
+    private fun Player.checkGroups(): Int {
+        if(player.hasPermission("sleekhomes.unlimited")) return 128 // Not really unlimited, but sane-ish one eh?
         var largest = 0
         main.configuration.groups.forEach { groupName, maxCount ->
-            if(player.hasPermission("pluxerhomes.group.$groupName")) {
+            if(player.hasPermission("sleekhomes.group.$groupName")) {
                 if(largest < maxCount)
                     largest = maxCount
             }
@@ -138,7 +141,7 @@ class HomesCommand(private val main: Main) : BaseCommand("pluxerhomes") {
     }
 
     private fun Player.hasWorldPermission(): Boolean = player
-            .hasPermission("pluxerhomes.worldgroup.${main.getGroupOrDefault(player.location.world.name)}")
+            .hasPermission("sleekhomes.worldgroup.${main.getGroupOrDefault(player.location.world.name)}")
 
     private fun Player.sendColoredMessage(text: String) {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', ""+text))

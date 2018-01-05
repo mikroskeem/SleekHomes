@@ -1,7 +1,7 @@
 /*
- * This file is part of project PluxerHomes, licensed under the MIT License (MIT).
+ * This file is part of project SleekHomes, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2017 Mark Vainomaa <mikroskeem@mikroskeem.eu>
+ * Copyright (c) 2018 Mark Vainomaa <mikroskeem@mikroskeem.eu>
  * Copyright (c) Contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,22 +23,18 @@
  * THE SOFTWARE.
  */
 
-package eu.mikroskeem.pluxer.homes.configuration.sections
+package eu.mikroskeem.sleekhomes.configuration.sections
 
 import ninja.leaping.configurate.objectmapping.Setting
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable
+
 
 /**
  * @author Mark Vainomaa
  */
 @ConfigSerializable
-class ListFormatSection {
-    @Setting(value = "prefix", comment = "List prefix")
-    var prefix = "&7Kodud: "
-
-    @Setting(value = "delimiter", comment = "List delimiter")
-    var delimiter = "&7, "
-
-    @Setting(value = "home-name-format", comment = "Home name format")
-    var homeNameFormat = "&6%homename"
+class WorldsSection {
+    @Setting(value = "world-groups", comment = "World groups")
+    var groups: Map<String, List<String>> = mapOf(Pair("survival-group", listOf("surv", "surv_nether", "surv_the_end")))
+        private set
 }

@@ -1,7 +1,7 @@
 /*
- * This file is part of project PluxerHomes, licensed under the MIT License (MIT).
+ * This file is part of project SleekHomes, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2017 Mark Vainomaa <mikroskeem@mikroskeem.eu>
+ * Copyright (c) 2018 Mark Vainomaa <mikroskeem@mikroskeem.eu>
  * Copyright (c) Contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,10 +23,15 @@
  * THE SOFTWARE.
  */
 
-package eu.mikroskeem.pluxer.homes
+package eu.mikroskeem.sleekhomes
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import eu.mikroskeem.sleekhomes.DatabaseWrapper.SQLStatements.DELETE
+import eu.mikroskeem.sleekhomes.DatabaseWrapper.SQLStatements.INSERT
+import eu.mikroskeem.sleekhomes.DatabaseWrapper.SQLStatements.SELECT_BY_HOME_WORLDGROUP_AND_HOME_NAME
+import eu.mikroskeem.sleekhomes.DatabaseWrapper.SQLStatements.SELECT_BY_UUID_AND_WORLDGROUP
+import eu.mikroskeem.sleekhomes.DatabaseWrapper.SQLStatements.UPDATE
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.entity.Player
@@ -62,7 +67,7 @@ class DatabaseWrapper(private val main: Main) {
     fun getHome(player: Player, world: World, homeName: String): Location? {
         val groupedName = main.getGroupOrDefault(world.name)
         hikari.connection.use {
-            it.prepareStatement(SQLStatements.SELECT_BY_HOME_WORLDGROUP_AND_HOME_NAME.statement).use {
+            it.prepareStatement(SELECT_BY_HOME_WORLDGROUP_AND_HOME_NAME.statement).use {
                 it.setString(1, player.uniqueId.toString())
                 it.setString(2, groupedName)
                 it.setString(3, homeName)
@@ -91,7 +96,7 @@ class DatabaseWrapper(private val main: Main) {
         @Suppress("NAME_SHADOWING") val location = location.clone()
         hikari.connection.use { conn ->
             if(getHome(player, location.world, homeName) != null) {
-                conn.prepareStatement(SQLStatements.UPDATE.statement).use {
+                conn.prepareStatement(UPDATE.statement).use {
                     it.setString(1, location.world.name)
                     it.setDouble(2, location.x)
                     it.setDouble(3, location.y)
@@ -104,7 +109,7 @@ class DatabaseWrapper(private val main: Main) {
                     it.execute()
                 }
             } else {
-                conn.prepareStatement(SQLStatements.INSERT.statement).use {
+                conn.prepareStatement(INSERT.statement).use {
                     it.setString(1, player.uniqueId.toString())
                     it.setString(2, main.getGroupOrDefault(location.world.name))
                     it.setString(3, location.world.name)
@@ -123,7 +128,7 @@ class DatabaseWrapper(private val main: Main) {
     /** Delete home */
     fun deleteHome(player: Player, world: World, homeName: String) {
         hikari.connection.use {
-            it.prepareStatement(SQLStatements.DELETE.statement).use {
+            it.prepareStatement(DELETE.statement).use {
                 it.setString(1, player.uniqueId.toString())
                 it.setString(2, main.getGroupOrDefault(world.name))
                 it.setString(3, homeName)
@@ -137,7 +142,7 @@ class DatabaseWrapper(private val main: Main) {
         val groupedName = main.getGroupOrDefault(world.name)
         val homes = arrayListOf<Pair<String, Location>>()
         hikari.connection.use {
-            it.prepareStatement(SQLStatements.SELECT_BY_UUID_AND_WORLDGROUP.statement).use {
+            it.prepareStatement(SELECT_BY_UUID_AND_WORLDGROUP.statement).use {
                 it.setString(1, player.uniqueId.toString())
                 it.setString(2, groupedName)
                 val result = it.executeQuery()
